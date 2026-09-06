@@ -7,11 +7,11 @@ Descripción
 
 Motor de videojuegos 2D/3D extensible y orientado a turnos inspirado en juegos clásicos tipo *roguelike* (como NetHack). Proporciona la infraestructura básica para gestionar mapas en grilla, sincronización de acciones de múltiples entidades, físicas simplificadas por celdas y renderizado gráfico flexible.
 
-###Roles
+### Roles
 Por definir
 
 
-###Funcionalidades 
+### Funcionalidades 
 
 ## Escenario
 
