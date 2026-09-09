@@ -1,23 +1,23 @@
-# Tarea
+# Task
 
-## Descripción
+## Description
 
-<!-- Describe claramente qué se necesita realizar. -->
+## Objective
 
-## Objetivo
+<!-- What is expected to be achieved? -->
 
-<!-- ¿Qué se espera conseguir con esta tarea? -->
-
-## Criterios de aceptación
+## Acceptance Criteria
 
 * [ ]
+
 * [ ]
+
 * [ ]
 
-## Dependencias
+## Dependencies
 
-<!-- Indica si esta tarea depende de otro Issue o SPIKE. -->
+<!-- Indicate whether this task depends on another Issue or SPIKE. -->
 
-## Notas
+## Notes
 
-<!-- Información adicional relevante. -->
+<!-- Additional relevant information. -->

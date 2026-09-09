@@ -1,70 +1,81 @@
-# Guía de estilo
+# Style Guide
 
-## Nombres
+## Naming
 
-* Las clases utilizan `PascalCase`.
-* Las funciones utilizan `snake_case`.
-* Las variables utilizan `snake_case`.
-* Las constantes utilizan `UPPER_SNAKE_CASE`.
+* Classes use `PascalCase`.
 
-Ejemplo:
+* Functions use `snake_case`.
+
+* Variables use `snake_case`.
+
+* Constants use `UPPER_SNAKE_CASE`.
+
+Example:
 
 ```cpp
 class Renderer {
+
 public:
-    void initialize_renderer();
+
+	void initialize_renderer();
+
 };
 
 const int MAX_TEXTURES = 32;
 ```
 
-## Formato
+## Formatting
 
+* Use tabs for indentation (1 tab per level).
 
-* utilizar tabs para la identacion, (1 tab por nivel).
-* Mantener líneas de código con una longitud razonable.
-* Colocar llaves de apertura en la misma línea que la declaración.
-* Si se puede hacer un oneliner ponerlo con llaves para evitar errores 
+* Keep lines of code at a reasonable length.
 
-en lugar de
+* Place opening braces on the same line as the declaration.
+
+* If something can be written as a one-liner, use braces to prevent errors.
+
+Instead of:
+
 ```text
-    if (x > 10) System.out.println("Si");
+if (x > 10) System.out.println("Yes");
 ```
 
-poner
+Use:
 
 ```text
 if (x > 10){
-    System.out.println("Mayor");
+
+	System.out.println("Greater");
+
 }
 ```
 
-## Comentarios
+## Comments
 
-Puede haber comentarios simples, pero debe haber comentarios para documentacion
+Simple comments are allowed, but there must be comments for documentation.
 
-## Documentacion
+## Documentation
 
-La documentación de clases, métodos y atributos públicos
-debe utilizar Javadoc/Doxygen según el lenguaje seleccionado.
+Documentation for classes, methods, and public attributes must use Javadoc/Doxygen according to the selected language.
 
+## Functions
 
-## Funciones
+Functions must have a single responsibility.
 
-Las funciones deben tener una unica responsabilidad
+Preferably, divide the logic into auxiliary functions as required.
 
-preferiblemente dividir la lógica en funciones auxiliares segun se requiera
+## Errors
 
-## Errores
+Do not ignore errors originating from external libraries or the system.
 
+## Dependencies
 
-No ignorar  errores provenientes de bibliotecas externas o del sistema.
+Before adding a new library:
 
-## Dependencias
+1. Research existing alternatives.
 
-Antes de agregar una nueva biblioteca:
+2. Evaluate licensing, compatibility, and maintenance.
 
-1. Investigar las alternativas existentes.
-2. Evaluar licencia, compatibilidad y mantenimiento.
-3. Revisar compatibilidad con las plataformas soportadas.
-4. Documentar decisiones arquitectónicas importantes mediante un ADR.
+3. Check compatibility with supported platforms.
+
+4. Document important architectural decisions through an ADR.

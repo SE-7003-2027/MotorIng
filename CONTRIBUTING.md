@@ -1,135 +1,178 @@
-# Guía de contribución
+# Contribution Guide
 
-Gracias por contribuir a MotorIng  (˶>⩊<˶)
+Thank you for contributing to MotorIng (˶>⩊<˶)
 
 ⠀⠀⠀⠀⢀⣤⠤⣄⠀⠀⠀⠀⣠⠤⣄⠀⠀⠀
+
 ⠀⠀⠀⢠⠞⠀⠀⠈⢷⠀⠀⡜⠃⠀⠈⢳⠀⠀
+
 ⠀⠀⠀⣾⠀⠀⠀⠀⠘⡇⢰⠅⠀⠀⠀⠸⡇⠀
+
 ⠀⠀⠀⣿⠀⠀⠀⠀⠀⡇⣾⠀⠀⠀⠀⢸⠃⠀
+
 ⠀⠀⠀⢹⡀⠀⠀⠀⠀⡇⣿⠀⠀⠀⠀⡾⠀⠀
+
 ⠀⠀⠀⠸⡇⠀⠀⠀⠀⠷⠿⠀⠀⠀⢰⠇⠀⠀
+
 ⠀⢀⡴⠛⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢶⡀⠀
+
 ⢰⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡄
+
 ⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣷
-⢹⠀⠀⠀⢰⡆⠀⠀⠀⠀⠀⠀⢀⣄⠀⠀⠀⡟
+
+⢹⠀⠀⠀⢰⠅⠀⠀⠀⠀⠀⠀⢀⣄⠀⠀⠀⡟
+
 ⠈⢧⡀⠀⠀⠀⠀⠀⢄⡀⣀⠀⠀⠁⠀⠀⣸⠃
+
 ⠀⠈⠻⢦⣀⠀⠀⠀⠚⠙⠂⠀⠀⠀⣀⡴⠋⠀
+
 ⠀⠀⠀⠀⠈⠉⠓⠒⠲⠶⠶⠒⠒⠋⠁⠀⠀⠀
 
-## Flujo de trabajo
+## Workflow
 
-Antes de comenzar a implementar una funcionalidad:
+Before starting to implement a feature:
 
-1. Revisar los Issues disponibles.
-2. Verificar si existe una tarea de investigación (SPIKE) relacionada.
-3. Revisar los ADR correspondientes a las decisiones de arquitectura.
-4. Crear o asignarse el Issue correspondiente.
-5. Crear una rama para el trabajo.
+1. Review the available Issues.
 
-### Ramas
+2. Check whether there is a related research task (SPIKE).
 
-Las ramas deben seguir el siguiente formato:
+3. Review the ADRs corresponding to architectural decisions.
+
+4. Create or assign yourself the corresponding Issue.
+
+5. Create a branch for the work.
+
+### Branches
+
+Branches must follow the following format:
 
 ```text
-feature/<descripcion>
-fix/<descripcion>
-refactor/<descripcion>
-docs/<descripcion>
-spike/<descripcion>
+feature/<description>
+
+fix/<description>
+
+refactor/<description>
+
+docs/<description>
+
+spike/<description>
 ```
 
-Ejemplos:
+Examples:
 
 ```text
-feature/renderizado-opengl
-fix/error-windowmanager
-docs/documentar-main
+feature/opengl-rendering
+
+fix/windowmanager-error
+
+docs/document-main
 ```
 
 ## Commits
 
-Los commits deben ser pequeños y claros.
+Commits should be small and clear.
 
-Formato recomendado:
+Recommended format:
 
 ```text
-tipo: descripcion 
+type: description
 ```
 
-o si puedes describir en especifico el archivo sobre el que se trabajo
+or, if you can specifically describe the file that was worked on:
 
 ```text
-tipo(archivo): descripcion 
+type(file): description
 ```
 
-Tipos:
+Types:
 
-* `feat`: nueva funcionalidad
-* `fix`: corrección de errores
-* `refactor`: modificación del código sin cambiar su comportamiento
-* `docs`: documentación
-* `test`: pruebas
-* `chore`: tareas de mantenimiento
-* `spike`: investigación
+* `feat`: new functionality
 
-Ejemplos:
+* `fix`: bug fixes
+
+* `refactor`: code modification without changing its behavior
+
+* `docs`: documentation
+
+* `test`: tests
+
+* `chore`: maintenance tasks
+
+* `spike`: research
+
+Examples:
 
 ```text
-feat: agregar sistema de renderizado
-fix(main): corregir inicializacion de ventana
-docs(README): actualizar guia de instalacion
+feat: add rendering system
+
+fix(main): fix window initialization
+
+docs(README): update installation guide
 ```
 
 ## Pull Requests
 
-Todo cambio que vaya a integrarse a la rama principal debe realizarse mediante un Pull Request.
+Any change that is going to be integrated into the main branch must be done through a Pull Request.
 
-Antes de abrir un PR:
+Before opening a PR:
 
-* Verificar que el código compile correctamente.
-* Ejecutar las pruebas disponibles.
-* Revisar que no existan errores de formato.
-* Actualizar la documentación cuando sea necesario.
-* Verificar que el cambio corresponda al Issue asociado.
+* Verify that the code compiles correctly.
 
-### Título del PR
+* Run the available tests.
 
-El título debe describir el cambio:
+* Check that there are no formatting errors.
+
+* Update the documentation when necessary.
+
+* Verify that the change corresponds to the associated Issue.
+
+### PR Title
+
+The title must describe the change:
 
 ```text
-feat: implementar renderizado básico
-fix: corregir creación de ventana
-docs: documentar API de renderizado
+feat: implement basic rendering
+
+fix: fix window creation
+
+docs: document rendering API
 ```
 
-### Descripción del PR
+### PR Description
 
+* What was modified.
 
-* Qué se modificó.
-* Por qué se realizó el cambio.
-* Issue relacionado.
-* Pruebas realizadas.
-* Consideraciones importantes para revisar.
+* Why the change was made.
 
-## Revisión de código
+* Related Issue.
 
-Los PR deben ser revisados por al menos otro integrante del equipo antes de integrarse a la rama principal.
+* Tests performed.
 
-se debe verificar:
+* Important considerations to review.
 
-* COdigo bien hecho
-* Cumplir con la arquitectura
-* Cumplir con el estilo
-* Pruebas
-* Documentación
+## Code Review
 
-## Arquitectura y ADR
+PRs must be reviewed by at least one other team member before being integrated into the main branch.
 
-Las decisiones importantes de arquitectura deben documentarse mediante ADRs.
+The following must be verified:
 
-Antes de introducir una tecnología, biblioteca o cambio arquitectónico importante, se debe investigar primero las alternativas disponibles y documentar la decisión.
+* Code is well written
 
-Los ADR se encuentran en:
+* Compliance with the architecture
+
+* Compliance with the style guide
+
+* Tests
+
+* Documentation
+
+## Architecture and ADR
+
+Important architectural decisions must be documented through ADRs.
+
+Before introducing a technology, library, or significant architectural change, the available alternatives must first be researched and the decision documented.
+
+ADRs can be found in:
 
 ```text
 /ADR
@@ -137,43 +180,62 @@ Los ADR se encuentran en:
 
 ## SPIKEs
 
-Las tareas de investigación deben registrarse como Issues de tipo SPIKE.
+Research tasks must be registered as Issues of type SPIKE.
 
-Un SPIKE debe responder una pregunta concreta antes de comenzar una implementación.
+A SPIKE must answer a specific question before beginning an implementation.
 
-Ejemplos:
+Examples:
 
-* ¿Qué biblioteca gráfica utilizaremos?
-* ¿Qué APIs necesita exponer la biblioteca?
-* ¿Qué plataformas soportaremos?
-* ¿Qué lenguaje se adapta mejor al proyecto?
+* What graphics library will we use?
 
-El resultado del SPIKE debe quedar documentado y, cuando corresponda, generar un ADR.
+* What APIs does the library need to expose?
 
-## Código
+* What platforms will we support?
 
-Todo código nuevo debe seguir la guía de estilo definida en:
+* What language best suits the project?
+
+The result of the SPIKE must be documented and, when applicable, generate an ADR.
+
+## Code
+
+All new code must follow the style guide defined in:
 
 ```text
 STYLE_GUIDE.md
 ```
 
-Los cambios deben mantener la arquitectura y las interfaces públicas del proyecto.
+Changes must maintain the architecture and public interfaces of the project.
 
 ⠀⠀⠀⠀ ⠀⠀⠀⣀⠤⠔⠒⠒⡄⢀⣠⠤⠤⠦⡄⠀
+
 ⠀⠀⠀⠀⠀⢀⡴⠋⠀⠀⠀⣀⠴⠊⣡⣴⣾⡿⣣⠃⠀⠀
+
 ⠀⠀⠀⠀⢰⠋⠀⠀⠀⡤⠊⠁⣠⣾⡿⠟⣉⠴⠁⠀⠀⠀
+
 ⠀⠀⠀⡠⠓⠀⠀⠀⠘⠁⢒⣿⠍⠓⠒⠉⠀⠀⠀⠀⠀⠀
+
 ⠀⢠⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⣄⠀⠀⠀⠀⠀⠀⠀⠀
+
 ⠀⡏⠀⠀⠀⠀⠴⠂⠀⠀⠀⠀⠀⠘⢦⠀⠀⠀⠀⠀⠀⠀
+
 ⢸⠘⠉⠀⠀⠀⣴⣶⢶⢀⠤⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀
+
 ⠀⢷⣿⣵⣴⡆⢙⠉⡘⠟⠉⠁⠀⢀⡼⠁⠀⠀⠀⠀⠀⠀
+
 ⢀⣾⡉⠣⠵⠶⠎⠉⠀⠀⠀⡠⠖⠛⠉⠉⠉⠙⢦⡀⠀⠀
+
 ⠀⠊⠑⠂⠀⠤⣄⠀⠀⠀⠀⠀⠀⢀⣠⠄⠒⠀⠘⠁⠀⠀
+
 ⣴⣒⠤⢤⡠⠔⡏⠀⠀⣀⠀⠀⠀⠀⠈⠙⠒⠢⢴⠑⢢⠀
+
 ⠷⡀⠁⠀⠀⠈⡏⠑⠊⠉⠀⠀⠀⠀⠀⠀⠀⠀⠈⡇⢠⠁
+
 ⠀⠈⠉⠉⠉⠉⠱⡀⠀⠀⠀⠀⠰⠀⠀⠀⠀⠀⠀⡏⠁⠀
+
 ⠀⠀⠀⠀⠀⠀⢸⠉⠒⠤⠤⢤⡇⠀⠀⠀⠀⢀⢼⣇⠀⠀
+
 ⠀⠀⠀⠀⠀⢠⠶⠿⠤⠤⠔⠛⡞⠦⣄⡠⡤⢊⣾⠟⠀⠀
+
 ⠀⠀⠀⠀⠀⢱⣤⣤⣤⠠⢶⡿⠀⠀⠀⠙⠶⠽⠟⠀⠀⠀
+
 ⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
