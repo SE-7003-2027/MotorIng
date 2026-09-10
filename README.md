@@ -1,67 +1,71 @@
-# Proyecto: Motor de juegos tipo NetHack
+# Project: NetHack-like Game Engine
 
-Se usarán varias clases abstractas, descritas posteriormente:
-Descripción
+Several abstract classes will be used, described below:
 
-### Descripción
+Description
 
-Motor de videojuegos 2D/3D extensible y orientado a turnos inspirado en juegos clásicos tipo *roguelike* (como NetHack). Proporciona la infraestructura básica para gestionar mapas en grilla, sincronización de acciones de múltiples entidades, físicas simplificadas por celdas y renderizado gráfico flexible.
+### Description
+
+Extensible 2D/3D video game engine oriented towards turn-based gameplay and inspired by classic *roguelike* games (such as NetHack). It provides the basic infrastructure for managing grid-based maps, synchronizing actions of multiple entities, simplified cell-based physics, and flexible graphical rendering.
 
 ### Roles
-Por definir
 
+To be defined
 
-### Funcionalidades 
+### Functionalities
 
-## Escenario
+## Scenario
 
-Área principal del juego en donde se renderizará el mundo de acuerdo a una lista de sprites contra las referencias al mundo cargado. Tendrá una lista de jugadores y se esperará a que todos los jugadores hayan hecho un movimiento o interacción antes de cambiar el frame y actualizar el escenario.
+Main area of the game where the world will be rendered according to a list of sprites against the references to the loaded world. It will have a list of players and will wait for all players to have made a move or interaction before changing the frame and updating the scenario.
 
-- Actualizar pantalla
+* Update screen
 
-## Mundo
+## World
 
-Un grid de $n \times m$ que contendrá una referencia a cualquier interactuable o espacio vacío en cada celda. Pueden ser cargados y descargados.
+An $n \times m$ grid that will contain a reference to any interactable object or empty space in each cell. They can be loaded and unloaded.
 
-## Objetos fisicos
+## Physical Objects
 
-Cualquier objeto dentro del mundo. No puede estar encima de otro objeto dentro del mundo. hitbox, sprites, construcción y destrucción de los objetos.
+Any object within the world. It cannot be on top of another object within the world. Hitbox, sprites, construction and destruction of objects.
 
-## Visualizador
+## Visualizer
 
-Un parser entre las referencias del mundo y los sprites de los objetos fisicos.
+A parser between the world references and the sprites of the physical objects.
 
-## Pared
+## Wall
 
-Objeto fisico no movible. Sin ningún tipo de interacción.
+Immovable physical object. Without any type of interaction.
 
-## Interactuable
+## Interactable
 
-Objeto fisico no movible con una función interna.
+Immovable physical object with an internal function.
 
-## Movibles
+## Movables
 
-NPCs o jugadores. Clase abstracta que se puede mover.
+NPCs or players. Abstract class that can be moved.
 
-## Jugador
+## Player
 
-Movible controlable, además podrá interactuar con objetos interactuables
+Controllable movable, it will also be able to interact with interactable objects.
 
 ## NPCs
 
-Movible. (add? o que lo haga el programador?) Se mueve al jugador
+Movable. (add? or should the programmer do it?) Moves towards the player.
 
-## Adicional: Interfaz 3D
+## Additional: 3D Interface
 
-Usando Raycast y Java Swing.
+Using Raycast and Java Swing.
 
+### Objective
 
-### Objetivo
+Design and implement a modular, maintainable, and extensible video game engine in Java (using Swing) that abstracts the complexity of managing matrix-based worlds, rendering (2D and 3D Raycasting), grid-based collision detection, and turn-based action synchronization, serving as a framework for the efficiently structured development of *roguelike* games.
 
-Diseñar e implementar un motor de videojuegos modular, mantenible y extensible en Java (utilizando Swing) que abstraiga la complejidad de la gestión de mundos matriciales, el renderizado (2D y Raycasting 3D), la detección de colisiones en grilla y la sincronización de acciones por turnos, sirviendo como marco de trabajo (*framework*) para el desarrollo eficientemente estructurado de juegos tipo *roguelike*.
+### Project Status
 
-### Estado del proyecto *Fase Actual:** *Diseño Arquitectónico e Implementación Inicial (Alfa)*
+Current Phase: Architectural Design and Initial Implementation (Alpha)
 
-- [x] **Definición de Arquitectura:** Diseño de clases abstractas base (`ObjetoFisico`, `Movible`, `Interactuable`).
-- [ ] **Gestor de Mundo:** Implementación de la matriz $n \times m$ y métodos de carga/descarga.
-- Por definir
+* [x] **Architecture Definition:** Design of base abstract classes (`PhysicalObject`, `Movable`, `Interactable`).
+
+* [ ] **World Manager:** Implementation of the $n \times m$ matrix and load/unload methods.
+
+* To be defined
