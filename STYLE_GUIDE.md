@@ -4,7 +4,7 @@
 
 * Classes use `PascalCase`.
 
-* Functions use `snake_case`.
+* Functions use `camelCase`.
 
 * Variables use `snake_case`.
 
@@ -16,9 +16,7 @@ Example:
 class Renderer {
 
 public:
-
-	void initialize_renderer();
-
+	void initializeRenderer();
 };
 
 const int MAX_TEXTURES = 32;
@@ -36,17 +34,15 @@ const int MAX_TEXTURES = 32;
 
 Instead of:
 
-```text
+```Java
 if (x > 10) System.out.println("Yes");
 ```
 
 Use:
 
-```text
+```Java
 if (x > 10){
-
 	System.out.println("Greater");
-
 }
 ```
 
