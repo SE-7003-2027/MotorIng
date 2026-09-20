@@ -29,13 +29,27 @@ public class Scenery {
         this.world = world;
         this.physical = physical;
         this.sprites = sprites;
+
+        for(int i = 0; i < physical.length; i++){
+            sprites[i] = physical[i].getSprite();
+        }
     }
 
     /**
      * Displays the current state of the game.
      */
     public void show() {
-        
+        for (int[] mapSide : world.getMap()) {
+            for (int j = 0; j < mapSide.length; j++) {
+                int index = mapSide[j];
+                if (index >= 0 && index < sprites.length) {
+                    System.out.print(sprites[index]);
+                } else {
+                    System.out.print('.');
+                }
+            }
+            System.out.println();
+        }
     }
 
     /**
