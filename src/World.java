@@ -4,7 +4,7 @@
  * <p>A {@code World} defines the environment in which the game objects
  * exist. Its map and behavior can be expanded as the game engine develops.</p>
  *
- * @author fabriziocasillas
+ * @author fabriziocasillas, thrinkler
  * @version 0.1
  */
 public class World {
@@ -16,11 +16,12 @@ public class World {
      * Creates a new world using the given physical objects.
      *
      * @param physicals the physical objects contained in the world
-     * @param mapSize the size of a side of the whole map
+     * @param mapLength the length of the whole map
+     * @param mapWidth the width of the whole map
      */
-    public World(Physical[] physicals, int mapSize) {
+    public World(Physical[] physicals, int mapLength, int mapWidth) {
         this.physicals = physicals;
-        map = new int[mapSize][mapSize];
+        map = new int[mapLength][mapWidth];
     }
 
     /**
@@ -31,9 +32,9 @@ public class World {
      * at its corresponding position.</p>
      */
     public void update(){ // Maybe for optimization, just update the pos of the physicals that have changed
-        map = new int[map.length][map.length];
+        map = new int[map.length][map[0].length];
         for(int i = 0; i < physicals.length; i++){
-            map[physicals[i].getX()][physicals[i].getY()] = i;
+            map[physicals[i].getY()][physicals[i].getX()] = i+1;
         }
     }
 
@@ -45,4 +46,21 @@ public class World {
         return map;
     }
 
+    /**
+     * Returns the array of physical objects in the world.
+     * @return the array of physical objects
+     */
+    public Physical[] getPhysicals(){
+        return physicals;
+    }
+
+    /**
+     * Returns the physical object at the specified index.
+     *
+     * @param index the index of the physical object
+     * @return the physical object at the given index
+     */
+    public Physical getPhysical(int index){
+        return physicals[index];
+    }
 }

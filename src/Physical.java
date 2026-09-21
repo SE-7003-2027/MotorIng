@@ -4,7 +4,7 @@
  * <p>A physical object has a position represented by its {@code x} and
  * {@code y} coordinates and a character used as its sprite.</p>
  *
- * @author fabriziocasillas
+ * @author fabriziocasillas, thrinkler
  * @version 0.1
  */
 public class Physical {
