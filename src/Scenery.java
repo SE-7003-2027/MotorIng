@@ -18,10 +18,38 @@ public class Scenery {
     private char[] sprites;
 
     /**
+     * Creates a new {@code Scenery} instance with the specified world,
+     * physical objects, and sprites.
+     *
+     * @param world the game world
+     * @param physical the physical objects in the world
+     * @param sprites the characters representing the sprites of the physical objects
+     */
+    public Scenery(World world, Physical[] physical, char[] sprites) {
+        this.world = world;
+        this.physical = physical;
+        this.sprites = sprites;
+
+        for(int i = 0; i < physical.length; i++){
+            sprites[i] = physical[i].getSprite();
+        }
+    }
+
+    /**
      * Displays the current state of the game.
      */
     public void show() {
-        
+        for (int[] mapSide : world.getMap()) {
+            for (int j = 0; j < mapSide.length; j++) {
+                int index = mapSide[j];
+                if (index >= 0 && index < sprites.length) {
+                    System.out.print(sprites[index]);
+                } else {
+                    System.out.print('.');
+                }
+            }
+            System.out.println();
+        }
     }
 
     /**
