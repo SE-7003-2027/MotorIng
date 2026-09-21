@@ -1,51 +1,43 @@
 /**
  * Controls the main state and execution of the game.
  *
- * <p>{@code Scenery} coordinates the current game world, physical objects,
- * sprites, input, updating, and displaying the game state.</p>
+ * <p>{@code Scenery} Renders and sends inputs to the current game world,
+ *  physical objects, sprites, input, updating, and displaying the game state.</p>
  *
  * <p>The {@code start()} method is responsible for starting the main
  * game loop, while {@code update(Input)} and {@code show()} handle
  * updating and displaying the current state.</p>
  *
- * @author fabrtiziocasillas
+ * @author fabrtiziocasillas, thrinkler
  * @version 0.1
  */
 public class Scenery {
 
     private World world;
-    private Physical[] physical;
-    private char[] sprites;
 
     /**
      * Creates a new {@code Scenery} instance with the specified world,
      * physical objects, and sprites.
      *
      * @param world the game world
-     * @param physical the physical objects in the world
-     * @param sprites the characters representing the sprites of the physical objects
      */
-    public Scenery(World world, Physical[] physical, char[] sprites) {
+    public Scenery(World world) {
         this.world = world;
-        this.physical = physical;
-        this.sprites = sprites;
-
-        for(int i = 0; i < physical.length; i++){
-            sprites[i] = physical[i].getSprite();
-        }
     }
 
     /**
      * Displays the current state of the game.
      */
     public void show() {
+
         for (int[] mapSide : world.getMap()) {
             for (int j = 0; j < mapSide.length; j++) {
                 int index = mapSide[j];
-                if (index >= 0 && index < sprites.length) {
-                    System.out.print(sprites[index]);
-                } else {
-                    System.out.print('.');
+                if(index > 0){
+                    System.out.print(world.getPhysical(index-1).getSprite());
+                }
+                else{
+                    System.out.print(" ");
                 }
             }
             System.out.println();
