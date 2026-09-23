@@ -71,4 +71,14 @@ public class Scenery {
     public void start() {
         
     }
+
+
+    /**Get the actual world
+     * 
+     * @return Actual world
+     */
+    public World getWorld(){
+        return this.world;
+    }
+
 }
