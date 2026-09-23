@@ -1,71 +1,110 @@
 # Project: NetHack-like Game Engine
 
-Several abstract classes will be used, described below:
+---
 
-Description
+## Team members
 
-### Description
+* **Member 1:** [Espejel Báez]
+* **Member 2:** [Cristian Josue]
+* **Member 3:** [Martinez Oviedo]
+* **Member 4:** [Pimientel Casillas]
+* **Member 5:** [Isaac Rivera]
 
-Extensible 2D/3D video game engine oriented towards turn-based gameplay and inspired by classic *roguelike* games (such as NetHack). It provides the basic infrastructure for managing grid-based maps, synchronizing actions of multiple entities, simplified cell-based physics, and flexible graphical rendering.
+---
 
-### Roles
+## Executive Summary
 
-To be defined
+Developing grid-based and turn-based games (such as classic *roguelikes*) often forces developers to repeatedly implement low-level mechanics like input synchronization, matrix coordinate mapping, and custom rendering loops.
 
-### Functionalities
+---
 
-## Scenario
+## Technical Requirements & Setup
 
-Main area of the game where the world will be rendered according to a list of sprites against the references to the loaded world. It will have a list of players and will wait for all players to have made a move or interaction before changing the frame and updating the scenario.
+* **Programming Language:** Java (JDK 17 or higher recommended, minimum JDK 11).
+* **Build / IDE:** Compatible with any standard Java IDE (IntelliJ IDEA, Eclipse, VS Code) or command line (Terminal).
+* * To be defined
+  * **GUI / Graphics:** Standard Java Swing & AWT (included in the standard JDK).
+---
 
-* Update screen
+## Running the Grid Prototype (`Test` Class)
 
-## World
+To test the current architecture and visualize the rendered matrix grid, you can run the `Test` entry point located in the `src/` folder.
 
-An $n \times m$ grid that will contain a reference to any interactable object or empty space in each cell. They can be loaded and unloaded.
+### Option 1: Via Terminal / Command Line
 
-## Physical Objects
+1. Open your terminal at the root directory of the project.
+2. Compile all Java source files from the `src/` directory into a `bin/` folder:
+   ```bash
+   javac -d bin src/*.java
 
-Any object within the world. It cannot be on top of another object within the world. Hitbox, sprites, construction and destruction of objects.
+---
 
-## Visualizer
+## Description
 
-A parser between the world references and the sprites of the physical objects.
+Extensible 2D/3D game engine oriented toward turn-based gameplay mechanics and inspired by classic *roguelikes* (such as NetHack). It provides the core infrastructure to manage grid-based maps, synchronize multi-entity actions, handle simplified cell-based movement, and perform flexible graphical rendering.
 
-## Wall
+---
 
-Immovable physical object. Without any type of interaction.
+## System Architecture & Classes
 
-## Interactable
+Below is the description of the core abstract and concrete classes that form the engine:
 
-Immovable physical object with an internal function.
+### Master Controller & Canvas
 
-## Movables
+* **`Scenery` (Master Controller):** 
+  The core controller of the entire game engine. It captures user inputs, manages turn cycles, receives updated coordinate data from `PhysicalObject` instances, and instructs `World` on what to render.
 
-NPCs or players. Abstract class that can be moved.
+* **`World` (Canvas & Matrix):** 
+  An $n \times m$ grid matrix acting as a visual canvas. Depending on the commands and data sent by `Scenery` (object positions and sprites), `World` renders all sprites in their corresponding cell locations. It supports map loading and unloading operations. *(Future update: `World` will evaluate collisions between entities with HitBoxes).*
 
-## Player
+### Entity Hierarchy
 
-Controllable movable, it will also be able to interact with interactable objects.
+* **`PhysicalObject` (Abstract Class):** 
+  Base class for any element present in the world. Holds spatial position coordinates and sprite references, returning its updated position to `Scenery` during every cycle. *(Note: HitBox and collision detection will be integrated in future releases).*
 
-## NPCs
+* **`Movable` (Abstract Class):** 
+  Extends `PhysicalObject`. Abstract base class that enables entity movement across the grid matrix.
 
-Movable. (add? or should the programmer do it?) Moves towards the player.
+* **`Player`:** 
+  Extends `Movable`. Controllable entity that responds to user input and interacts with interactive objects in the world.
 
-## Additional: 3D Interface
+* **`NPC`:** 
+  Extends `Movable`. Non-player character controlled by automated logic (moves toward the player).
 
-Using Raycast and Java Swing.
+* **`Interactable` (Abstract Class):** 
+  Extends `PhysicalObject`. Immovable object that triggers internal functions or events upon interaction.
 
-### Objective
+* **`Wall`:** 
+  Extends `PhysicalObject`. Immovable, static physical barrier without interactions.
 
-Design and implement a modular, maintainable, and extensible video game engine in Java (using Swing) that abstracts the complexity of managing matrix-based worlds, rendering (2D and 3D Raycasting), grid-based collision detection, and turn-based action synchronization, serving as a framework for the efficiently structured development of *roguelike* games.
+* **`Visualizer`:** 
+  Intermediary component acting between world grid references and `PhysicalObject` graphical sprites.
 
-### Project Status
+---
 
-Current Phase: Architectural Design and Initial Implementation (Alpha)
+## Additional Features: 3D Interface
 
-* [x] **Architecture Definition:** Design of base abstract classes (`PhysicalObject`, `Movable`, `Interactable`).
+* **Raycasting Rendering:** 
+  Optional pseudo-3D visual projection module built using custom *Raycast* algorithms and Java Swing graphics components.
 
-* [ ] **World Manager:** Implementation of the $n \times m$ matrix and load/unload methods.
+---
 
-* To be defined
+## Objective
+
+Design and implement a modular, maintainable, and extensible game engine in Java (using Swing) that abstracts the complexity of managing matrix-based worlds, rendering (both 2D and 3D Raycasting), grid collision detection, and turn action synchronization, serving as an efficient framework for *roguelike* game development.
+
+---
+
+## Project Status
+
+**Current Phase:** Architectural Design & Initial Implementation (Alpha)
+
+* [x] **SPIKE Research & ADR:** Architecture definition and technology validation.
+* [x] **Core Hierarchy Setup:** Abstract base classes created (`PhysicalObject`, `Movable`, `Interactable`).
+* [x] **Master Controller (`Scenery`):** Basic input reception and output loop generation.
+* [x] **Grid Canvas (`World`):** Matrix setup for receiving sprite position arrays and drawing map layouts.
+* * To be defined
+  * [ ] **HitBox & Collision Engine:** Adding hitboxes to `PhysicalObject` and collision evaluation in `World`.
+  * [ ] **Map Loading System:** File parsing for loading and unloading $n \times m$ matrices.
+  * [ ] **NPC Pathfinding:** AI logic for dynamic pathing toward the player.
+
