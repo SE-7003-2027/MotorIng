@@ -1,3 +1,8 @@
+package src;
+
+import java.util.Scanner;
+import src.World.World;
+
 /**
  * Controls the main state and execution of the game.
  *
@@ -50,7 +55,14 @@ public class Scenery {
      * @param input the input received from the user
      */
     public void update(Input input) {
-        
+        Scanner scanner = new Scanner(System.in);
+        while(input.getLastKey() != 'Q'){
+
+            Input.movePhys(String.valueOf(input.getLastKey()), world.getPlayer());
+            world.update();
+            show();
+            input.readInput(scanner);
+        }
     }
 
     /**

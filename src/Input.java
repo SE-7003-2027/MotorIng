@@ -1,4 +1,6 @@
+package src;
 import java.util.Scanner;
+import src.Physicals.Physical;
 
 
 /**
@@ -13,77 +15,49 @@ import java.util.Scanner;
  */
 public class Input {
         
-    //private String movement;
 
-    /**Obtain the instruction
+    private char lastKey;
+
+    public void readInput(Scanner scanner) {
+        String input = scanner.nextLine().trim().toUpperCase();
+        if (!input.isEmpty()) {
+            lastKey = input.charAt(0);
+        } else {
+            lastKey = ' ';
+        }
+    }
+
+    public char getLastKey() {
+        return lastKey;
+    }
+
+    /**Update de position of the character in the direction
      * 
-     * @return String with movement
+     * @param direction Order to move
+     * @param character Position of the characater
+     * @return
      */
+    public static void movePhys(String direction, Physical character){
 
+        Physical pos = new Physical(0, 0, '0');
 
-        /**Update de position of the character in the direction
-         * 
-         * @param direction Order to move
-         * @param character Position of the characater
-         * @return
-         */
-
-        public static void forward(String direction, Physical character){
-
-            Physical pos = new Physical(0, 0, '0');
-
-            if(direction.equals("up")){
-                character.updatePos(character.getX()-1, character.getY());
-            }
-
-            else if(direction.equals("down")){
-                character.updatePos(character.getX()+1, character.getY());
-            }
-
-            else if(direction.equals("left")){
+        switch (direction.toUpperCase().charAt(0)) {
+            case 'W':
                 character.updatePos(character.getX(), character.getY()-1);
-            }
-            
-            else if(direction.equals("right")){
+                break;
+            case 'S':
                 character.updatePos(character.getX(), character.getY()+1);
-            }
-            
-            System.out.println("Ejecucion del nuevo pos que contiene los datos:");
-            System.out.println(pos.getX());
-            System.out.println(pos.getY());
-            System.out.println("//////////////////////////////////////////0");
-            //return pos;
+                break;
+            case 'A':
+                character.updatePos(character.getX()-1, character.getY());
+                break;
+            case 'D':
+                character.updatePos(character.getX()+1, character.getY());
+                break;
+            default:
+                break;
         }
+    }
 
 
-     /**Idetify instruction passed
-     * 
-     * @param instruction Order by person
-     * @param actual Actual Scenary
-    */
-        public static void order(String instruction, Scenery actual){
-            World current = actual.getWorld();
-
-            if(instruction.equals("Move")){
-                Scanner is = new Scanner(System.in);
-                System.out.println("Move of the character");
-                String direction = is.nextLine();
-
-                //maybe save the character position to optimazate
-                //exception if i not the character
-                for(Physical object: current.getPhysicals()){
-                    if(object.getSprite() == '0'){
-                        forward(direction, object);
-                        break;
-                    }
-                 }             
-                
-            }
-
-
-            else{
-                System.out.println("The Instruction is not identified");
-
-            }
-        }
 }

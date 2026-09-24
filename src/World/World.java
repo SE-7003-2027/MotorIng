@@ -1,3 +1,7 @@
+package src.World;
+
+import src.Physicals.Physical;
+
 /**
  * Represents a game world containing the map and physical objects.
  *
@@ -11,6 +15,8 @@ public class World {
 
     private int[][] map;
     private Physical[] physicals;
+
+    private Physical player; // After first Demo, this will point to a controller. Also it has to be 1+ player
 
     /**
      * Creates a new world using the given physical objects.
@@ -62,5 +68,13 @@ public class World {
      */
     public Physical getPhysical(int index){
         return physicals[index];
+    }
+
+    public Physical getPlayer(){
+        return player;
+    }
+
+    public void addController(Physical player){
+        this.player = player;
     }
 }
