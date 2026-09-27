@@ -68,7 +68,6 @@ public class Scenery {
      *
      */
     public void update() {
-        world.update();
     }
 
     /**
