@@ -10,5 +10,9 @@
 .history/
 .ionide/
 
+# Intellij
+.idea/
+*.iml
+
 #Java output
 out/

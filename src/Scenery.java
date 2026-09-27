@@ -1,4 +1,5 @@
 package src;
+import src.Controller.UserInput;
 
 import src.World.World;
 import src.World.Map;
@@ -63,12 +64,10 @@ public class Scenery {
     }
 
     /**
-     * Updates the game state using the given input.
+     * Updates the game state.
      *
-     * @param input the input received from the user
      */
-    public void update(Input input) {
-
+    public void update() {
     }
 
     /**
