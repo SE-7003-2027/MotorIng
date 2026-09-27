@@ -1,62 +1,54 @@
 package src.World;
+
 import src.Physical.Physical;
 
-import java.awt.print.PrinterJob;
 import java.util.Vector;
 
 /**
- * Represents a game world containing the map and physical objects.
+ * Represents a game world containing a static map and physical objects.
  *
  * <p>A {@code World} defines the environment in which the game objects
- * exist. Its map and behavior can be expanded as the game engine develops.</p>
+ * exist. The static map represents the environment and does not need to
+ * be recreated when physical objects change their positions.</p>
+ *
+ * <p>Physical objects are stored separately from the map because they
+ * can change their position during the execution of the game.</p>
  *
  * @author fabriziocasillas, thrinkler
  * @version 0.1
  */
 public class World {
 
-    private int[][] map;
+    private Map map;
+
     private Vector<Physical> physicals;
 
     /**
-     * Creates a new world using the given physical objects.
+     * Creates a new world using the specified map and physical objects.
      *
+     * @param map the static map representing the environment
      * @param physicals the physical objects contained in the world
-     * @param mapLength the length of the whole map
-     * @param mapWidth the width of the whole map
      */
-    public World(Vector<Physical> physicals, int mapLength, int mapWidth) {
+    public World(Map map, Vector<Physical> physicals) {
+        this.map = map;
         this.physicals = physicals;
-        map = new int[mapLength][mapWidth];
     }
 
     /**
-     * Updates the world state by refreshing the map based on the positions
-     * of the physical objects.
+     * Returns the static map of the world.
      *
-     * <p>This method clears the current map and places each physical object
-     * at its corresponding position.</p>
+     * @return the {@link Map} representing the environment
      */
-    public void update(){ // Maybe for optimization, just update the pos of the physicals that have changed
-        map = new int[map.length][map[0].length];
-        for(int i = 0; i < physicals.size(); i++){
-            map[physicals.get(i).getY()][physicals.get(i).getX()] = i+1;
-        }
-    }
-
-    /**
-     * Returns the current map of the world.
-     * @return the 2D array representing the world map
-     */
-    public int[][] getMap(){
+    public Map getMap() {
         return map;
     }
 
     /**
-     * Returns the array of physical objects in the world.
-     * @return the array of physical objects
+     * Returns the physical objects contained in the world.
+     *
+     * @return a {@link Vector} containing the physical objects
      */
-    public Vector<Physical> getPhysicals(){
+    public Vector<Physical> getPhysicals() {
         return physicals;
     }
 
@@ -66,7 +58,7 @@ public class World {
      * @param index the index of the physical object
      * @return the physical object at the given index
      */
-    public Physical getPhysical(int index){
+    public Physical getPhysical(int index) {
         return physicals.get(index);
     }
 }
