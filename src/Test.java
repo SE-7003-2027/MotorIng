@@ -1,94 +1,69 @@
-import java.io.PushbackInputStream;
+import src.Physical.Physical;
+import src.World.Map;
+import src.World.MapReader;
+import src.World.World;
+import src.Scenery;
 
+import java.io.IOException;
+import java.util.Vector;
 
+/**
+ * Tests the Map, MapReader, Physical, Scenery, and World classes
+ * by loading and displaying a simple map.
+ *
+ * @author fabriziocasillas, thrinkler
+ * @version 0.1
+ */
 public class Test {
 
     /**
-     * Testing of classes Physical, Scenary and World to contruct sinple map
-     * @param args
-    */
-    public static void main(String args[]){
-        
-        Physical physicals[] = new Physical[35];        
-        int counter = 0;
+     * Loads a map from a text file, creates physical objects,
+     * constructs a world, and displays the resulting map.
+     *
+     * @param args command-line arguments
+     * @throws IOException if the map file cannot be read
+     */
+    public static void main(String args[]) throws IOException {
 
-        int i = 0;
-        while( i < 9){
-            if(i < 2 || i == 4|| i == 6 || i == 8){
-                int j = 0;
-                if(i == 4 || i == 6){
-                    while (j < 3) {
-                        Physical put = new Physical(i, j, '#');    
-                        physicals[counter] = put; 
-                        counter++;
-                        j++;
-                    }
-                }
-                else{
-                    while (j < 5) {
-                        Physical put = new Physical(i, j, '#');    
-                        physicals[counter] = put; 
-                        counter++;
-                        j++;
-                    }
-                }
-            }
-            i++;
-        }
- 
-        for(int k = 0; k < 9; k++ ){
-            Physical wall = new Physical(k, 5, '#');
-            physicals[counter] = wall;
-            counter++;
-        }
+        /*
+         * Load the static map from the text file.
+         */
+        Map map = MapReader.read("maps/map.txt");
 
+        /*
+         * Create the physical objects that exist in the world.
+         * Walls are no longer represented as Physical objects
+         * because they belong to the static map.
+         */
+        Vector<Physical> physicals = new Vector<>();
 
-        Physical detail =  new Physical(5, 0, '#');
-        physicals[counter] = detail;
-        counter++;
+        Physical potion = new Physical(5, 1, '*');
+        physicals.add(potion);
 
-        //at moment objects are rpresented for characters
+        Physical secondPotion = new Physical(2, 4, '*');
+        physicals.add(secondPotion);
 
+        Physical enemy = new Physical(7, 4, '@');
+        physicals.add(enemy);
 
-        Physical potion = new Physical(5, 1, '*'); //the potion its represented for *
-        physicals[counter] = potion; 
-        counter++;
+        Physical character = new Physical(2, 1, 'o');
+        physicals.add(character);
 
-        Physical second_potion = new Physical(2, 4, '*');
-        physicals[counter] = second_potion; 
-        counter++;
+        /*
+         * Create the world using the static map and
+         * the physical objects.
+         */
+        World world = new World(map, physicals);
 
-
-
-        Physical enemy =new Physical(7, 4, '@');
-        physicals[counter] = enemy; //at the moments its represented for @;
-        counter++;
-      
-        Physical character =  new Physical(2, 0, 'o');
-        physicals[counter] = character; //at the moments its represented for o;
-
-        World world = new World(physicals, 6, 9);   
-        world.update();     
-        Scenery scenary = new Scenery(world);
+        /*
+         * Create the scenery and display the world.
+         */
+        Scenery scenery = new Scenery(world);
 
         System.out.println("Print a simple map\n");
-        scenary.show();
-        System.out.println("\n");
 
+        scenery.show();
 
-
-
-        
-        // Prove movement
-
-
-                   
-        System.out.println("YOU EXIT SUCCESFULLY");
-
-        
-
+        System.out.println("\nYOU EXIT SUCCESFULLY");
     }
-
-
-    
 }
