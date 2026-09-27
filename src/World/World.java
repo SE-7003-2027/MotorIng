@@ -1,3 +1,9 @@
+package src.World;
+import src.Physical.Physical;
+
+import java.awt.print.PrinterJob;
+import java.util.Vector;
+
 /**
  * Represents a game world containing the map and physical objects.
  *
@@ -10,7 +16,7 @@
 public class World {
 
     private int[][] map;
-    private Physical[] physicals;
+    private Vector<Physical> physicals;
 
     /**
      * Creates a new world using the given physical objects.
@@ -19,7 +25,7 @@ public class World {
      * @param mapLength the length of the whole map
      * @param mapWidth the width of the whole map
      */
-    public World(Physical[] physicals, int mapLength, int mapWidth) {
+    public World(Vector<Physical> physicals, int mapLength, int mapWidth) {
         this.physicals = physicals;
         map = new int[mapLength][mapWidth];
     }
@@ -33,8 +39,8 @@ public class World {
      */
     public void update(){ // Maybe for optimization, just update the pos of the physicals that have changed
         map = new int[map.length][map[0].length];
-        for(int i = 0; i < physicals.length; i++){
-            map[physicals[i].getY()][physicals[i].getX()] = i+1;
+        for(int i = 0; i < physicals.size(); i++){
+            map[physicals.get(i).getY()][physicals.get(i).getX()] = i+1;
         }
     }
 
@@ -50,7 +56,7 @@ public class World {
      * Returns the array of physical objects in the world.
      * @return the array of physical objects
      */
-    public Physical[] getPhysicals(){
+    public Vector<Physical> getPhysicals(){
         return physicals;
     }
 
@@ -61,6 +67,6 @@ public class World {
      * @return the physical object at the given index
      */
     public Physical getPhysical(int index){
-        return physicals[index];
+        return physicals.get(index);
     }
 }

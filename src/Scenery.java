@@ -1,3 +1,6 @@
+package src;
+import src.World.World;
+
 /**
  * Controls the main state and execution of the game.
  *

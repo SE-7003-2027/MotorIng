@@ -1,4 +1,8 @@
+package src;
 import java.util.Scanner;
+
+import src.Physical.Physical;
+import src.World.World;
 
 
 /**

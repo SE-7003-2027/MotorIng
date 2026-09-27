@@ -1,3 +1,4 @@
+package src.Physical;
 /**
  * Represents a physical object within the game world.
  *
