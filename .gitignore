@@ -10,3 +10,6 @@
 .history/
 .ionide/
 
+# Intellij
+.idea/
+*.iml
