@@ -1,5 +1,6 @@
 package src.Controller;
 
+import src.Inputs.Input;
 import src.Physical.Physical;
 
 
@@ -16,10 +17,11 @@ import src.Physical.Physical;
  * @author thrinkler
  * @version 0.1
  */
-public class UserInput extends Controller{
+public class UserController extends Controller{
+    private volatile String command;
 
-    public UserInput(Physical physical) {
-        super(physical);
+    public UserController(Physical physical, Input input) {
+        super(physical, input);
         
         actions = new Action[]{
                 new Translation(0, -1), // Up
@@ -39,5 +41,10 @@ public class UserInput extends Controller{
             case 'D' -> actions[3];
             default -> null;
         };
+    }
+
+    @Override
+    public Action action() {
+        return null;
     }
 }
