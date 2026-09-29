@@ -1,5 +1,6 @@
 package src.Controller;
 
+import src.Inputs.Input;
 import src.Physical.Physical;
 
 /**
@@ -16,10 +17,14 @@ import src.Physical.Physical;
 public abstract class Controller {
 
     protected Physical physical;
+    protected Input input;
     protected Action[] actions;
 
-    public Controller(Physical physical) {
+    protected Action askAction;
+
+    public Controller(Physical physical, Input input) {
         this.physical = physical;
+        this.input = input;
     }
 
     /**
@@ -29,5 +34,10 @@ public abstract class Controller {
      * @return the action associated with the command, or null if no action is found
      */
     public abstract Action action(String command);
+    public abstract Action action();
+
+    public Physical getPhysical() {
+        return physical;
+    }
 }
 
