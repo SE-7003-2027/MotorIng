@@ -18,7 +18,7 @@ import src.Physical.Physical;
  * @author fabrtiziocasillas, thrinkler
  * @version 0.1
  */
-public class Scenery {
+public abstract class Scenery {
 
     private World world;
 
@@ -39,7 +39,7 @@ public class Scenery {
      * displayed on top of the map according to their current positions.</p>
      */
     public void show() {
-
+    
         Map map = world.getMap();
 
         for (int y = 0; y < map.getHeight(); y++) {
@@ -62,7 +62,9 @@ public class Scenery {
             System.out.println();
         }
     }
-
+    
+ 
+ 
     /**
      * Updates the game state.
      *

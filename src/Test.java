@@ -1,3 +1,4 @@
+package src;
 import src.Physical.Physical;
 import src.World.Map;
 import src.World.MapReader;
@@ -58,11 +59,19 @@ public class Test {
         /*
          * Create the scenery and display the world.
          */
-        Scenery scenery = new Scenery(world);
+
 
         System.out.println("Print a simple map\n");
 
-        scenery.show();
+
+        Draw drawi = new Draw(world);
+        drawi.drawMap();
+
+
+        
+
+
+
 
         System.out.println("\nYOU EXIT SUCCESFULLY");
     }
