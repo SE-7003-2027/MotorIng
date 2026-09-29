@@ -1,5 +1,8 @@
 package src.World;
 
+import src.Controller.Action;
+import src.Controller.Controller;
+import src.Controller.Translation;
 import src.Physical.Physical;
 
 import java.util.Vector;
@@ -45,6 +48,17 @@ public class World {
         return map;
     }
 
+
+    public void update(Vector<Controller> controllers) {
+        for (Controller controller : controllers) {
+            Action action = controller.action();
+            if(action instanceof Translation){
+                controller.getPhysical().updatePos(
+                        ((Translation) action).getDx(),((Translation) action).getDy()
+                );
+            }
+        }
+    }
     /**
      * Returns the physical objects contained in the world.
      *

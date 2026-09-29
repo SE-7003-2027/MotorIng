@@ -1,25 +1,35 @@
-## Descripción
+## Description
 
-<!-- Explica brevemente qué cambios realizaste y por qué. -->
+<!-- Briefly explain what changes you made and why. -->
 
-## Issue relacionado
+## Related Issue
 
 Closes #
 
-## Tipo de cambio
+## Type of Change
 
-* [ ] Nueva funcionalidad
-* [ ] Corrección de error
-* [ ] Refactorización
-* [ ] Documentación
-* [ ] Pruebas
-* [ ] SPIKE / investigación
+* [ ] New feature
+
+* [ ] Bug fix
+
+* [ ] Refactoring
+
+* [ ] Documentation
+
+* [ ] Tests
+
+* [ ] SPIKE / Research
 
 ## Checklist
 
-* [ ] El código compila correctamente.
-* [ ] Las pruebas pasan.
-* [ ] Se siguió la guía de estilo.
-* [ ] La documentación fue actualizada si era necesario.
-* [ ] Se revisaron los posibles efectos sobre la arquitectura.
-* [ ] Los cambios están relacionados con el Issue indicado.
+* [ ] The code compiles correctly.
+
+* [ ] All tests pass.
+
+* [ ] The style guide was followed.
+
+* [ ] Documentation was updated if necessary.
+
+* [ ] Potential effects on the architecture were reviewed.
+
+* [ ] The changes are related to the specified Issue.

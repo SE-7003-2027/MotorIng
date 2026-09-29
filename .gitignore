@@ -1,0 +1,18 @@
+# Visual Studio Code configuration files
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/code-workspace
+
+# Local history / Workspace storage
+.history/
+.ionide/
+
+# Intellij
+.idea/
+*.iml
+
+#Java output
+out/

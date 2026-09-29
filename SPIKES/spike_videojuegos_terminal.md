@@ -8,14 +8,14 @@ Investigar videojuegos que puedan jugarse completamente desde una terminal y abs
 
 Se realizó un pequeño *spike* de videojuegos cuya interacción puede realizarse completamente desde una terminal, utilizando caracteres ASCII/Unicode y entradas de teclado.
 
-
 ### 1. NetHack
 
 **Tipo:** Roguelike / exploración de mazmorras.
 
 NetHack puede jugarse mediante una interfaz basada en caracteres. El mapa se representa mediante símbolos y cada elemento visible pertenece a una categoría concreta.
 
-**Características generales**
+#### Características generales de NetHack
+
 - Mundo representado en una cuadrícula.
 - Juego por turnos.
 - Exploración de niveles o habitaciones.
@@ -24,7 +24,8 @@ NetHack puede jugarse mediante una interfaz basada en caracteres. El mapa se rep
 - Interacción con puertas, escaleras, trampas y elementos del mapa.
 - Uso de caracteres para representar entidades.
 
-**Objetos básicos que pueden abstraerse**
+#### Objetos básicos que pueden abstraerse en NetHack
+
 - `Jugador`
 - `Enemigo`
 - `Objeto`
@@ -36,7 +37,8 @@ NetHack puede jugarse mediante una interfaz basada en caracteres. El mapa se rep
   - escalera
   - trampa
 
-**Movimientos y controles principales**
+#### Movimientos y controles principales de NetHack
+
 - Movimiento en 8 direcciones.
   - arriba, abajo, izquierda, derecha y diagonalmente.
 - Movimiento con teclado numérico o teclas configuradas.
@@ -52,7 +54,8 @@ NetHack puede jugarse mediante una interfaz basada en caracteres. El mapa se rep
 
 Angband utiliza un mapa basado en cuadrícula y puede jugarse mediante una interfaz de terminal. El jugador explora una mazmorra generada proceduralmente y combate enemigos mientras obtiene equipo.
 
-**Características generales**
+#### Características generales de Angband
+
 - Juego por turnos.
 - Mapa de cuadrícula.
 - Generación procedural.
@@ -61,7 +64,8 @@ Angband utiliza un mapa basado en cuadrícula y puede jugarse mediante una inter
 - Inventario.
 - Objetos utilizables y equipables.
 
-**Objetos básicos que pueden abstraerse**
+#### Objetos básicos que pueden abstraerse en Angband
+
 - `Jugador`
 - `Monstruo`
 - `Item`
@@ -73,7 +77,8 @@ Angband utiliza un mapa basado en cuadrícula y puede jugarse mediante una inter
 - `Trampa`
 - `Escalera`
 
-**Movimientos y controles principales**
+#### Movimientos y controles principales de Angband
+
 - Flechas o teclado numérico.
 - En el esquema roguelike también se utilizan:
   - `h`: izquierda
@@ -92,7 +97,8 @@ Angband utiliza un mapa basado en cuadrícula y puede jugarse mediante una inter
 
 Dungeon Crawl Stone Soup dispone de una versión clásica ASCII/consola que puede jugarse completamente mediante teclado.
 
-**Características generales**
+#### Características generales de Dungeon Crawl Stone Soup
+
 - Juego por turnos.
 - Movimiento sobre una cuadrícula.
 - Exploración de mazmorras.
@@ -103,7 +109,8 @@ Dungeon Crawl Stone Soup dispone de una versión clásica ASCII/consola que pued
 - Escaleras, puertas, trampas y tiendas.
 - Exploración automática disponible como comando.
 
-**Objetos básicos que pueden abstraerse**
+#### Objetos básicos que pueden abstraerse en Dungeon Crawl Stone Soup
+
 - `Jugador`
 - `Enemigo`
 - `Item`
@@ -117,7 +124,8 @@ Dungeon Crawl Stone Soup dispone de una versión clásica ASCII/consola que pued
 - `Escalera`
 - `Trampa`
 
-**Movimientos y controles principales**
+#### Movimientos y controles principales de Dungeon Crawl Stone Soup
+
 - Movimiento en ocho direcciones.
   - Igual que Nethack arriba, abajo, izquierda, derecha y diagonalmente.
 - Flechas, teclado numérico o teclas configuradas.
@@ -133,16 +141,16 @@ Reduciendo estos videjuegos a sus componente básicos podemos obtener lo siguien
 
 ### Entidades
 
-
 Entidad
+
 - posicion
 - simbolo
 - estado
 
-
 Una entidad representa cualquier elemento que ocupa o aparece en una posición del mapa.
 
 Ejemplos:
+
 - `jugador`
 - `enemigo`
 - `comida`
@@ -151,34 +159,34 @@ Ejemplos:
 
 ### Posición
 
-
 Posicion
+
 - x
 - y
-
 
 La mayoría de juegos se modela en una matriz bidimensional, por lo que solo necesitamos el eje x y y.
 
 ### Jugador
 
-
 Jugador : Entidad
+
 - vida
 - direccion
 - inventario
 - puntuacion
 
-
 No todos los juegos necesitan todos los atributos. Por ejemplo, Snake puede necesitar dirección y puntuación, mientras que un roguelike necesita vida e inventario.
 
 ### Objeto
+
 Objeto : Entidad
+
 - tipo
 - efecto
 - recogible
 
-
 Ejemplos:
+
 - comida
 - arma
 - llave
@@ -239,7 +247,6 @@ Para realizar la investigación no se requiere implementar código.
 
 ### Fuentes consultadas
 
-- NetHack Guidebook — https://www.nethack.org/
-- Angband Manual — https://angband.readthedocs.io/
-- Dungeon Crawl Stone Soup — https://github.com/crawl/crawl
-
+- NetHack Guidebook — <https://www.nethack.org/>
+- Angband Manual — <https://angband.readthedocs.io/>
+- Dungeon Crawl Stone Soup — <https://github.com/crawl/crawl>
