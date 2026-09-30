@@ -36,7 +36,10 @@ public abstract class Scenery {
      * Displays the current state of the game.
      *
      * <p>The static map is displayed first. Physical objects are then
-     * displayed on top of the map according to their current positions.</p>
+     * displayed on top of the map. For each cell, the world is asked which
+     * object occupies it, and that object provides the sprite for that
+     * specific cell. This allows objects that occupy several cells
+     * to be drawn completely.</p>
      */
     public void show() {
     
@@ -48,12 +51,10 @@ public abstract class Scenery {
 
                 char sprite = map.getTile(x, y);
 
-                for (Physical object : world.getPhysicals()) {
+                Physical object = world.getPhysicalAt(x, y);
 
-                    if (object.getX() == x && object.getY() == y) {
-                        sprite = object.getSprite();
-                        break;
-                    }
+                if (object != null) {
+                    sprite = object.getSpriteAt(x, y);
                 }
 
                 System.out.print(sprite);
