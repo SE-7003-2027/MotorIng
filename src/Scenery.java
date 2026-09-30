@@ -1,5 +1,4 @@
 package src;
-import src.Controller.UserInput;
 
 import src.World.World;
 import src.World.Map;
@@ -42,24 +41,16 @@ public abstract class Scenery {
      * to be drawn completely.</p>
      */
     public void show() {
-    
         Map map = world.getMap();
-
         for (int y = 0; y < map.getHeight(); y++) {
-
             for (int x = 0; x < map.getWidth(); x++) {
-
                 char sprite = map.getTile(x, y);
-
                 Physical object = world.getPhysicalAt(x, y);
-
                 if (object != null) {
                     sprite = object.getSpriteAt(x, y);
                 }
-
                 System.out.print(sprite);
             }
-
             System.out.println();
         }
     }
