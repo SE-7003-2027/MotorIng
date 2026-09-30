@@ -25,7 +25,7 @@ test() {
     echo "Testeando..."
     echo ""
 
-    java -cp "$BUILD_DIR" Test
+    java -cp "$BUILD_DIR" src.Test
 }
 
 clean() {

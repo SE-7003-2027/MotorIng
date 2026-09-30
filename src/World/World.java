@@ -52,9 +52,11 @@ public class World {
     public void update(Vector<Controller> controllers) {
         for (Controller controller : controllers) {
             Action action = controller.action();
-            if(action instanceof Translation){
-                controller.getPhysical().updatePos(
-                        ((Translation) action).getDx(),((Translation) action).getDy()
+            if (action instanceof Translation translation) {
+                Physical physical = controller.getPhysical();
+                physical.updatePos(
+                        physical.getX() + translation.getDx(),
+                        physical.getY() + translation.getDy()
                 );
             }
         }

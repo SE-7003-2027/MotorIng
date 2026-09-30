@@ -1,5 +1,7 @@
 package src;
 import javax.swing.JFrame;
+
+import src.Inputs.JframeInput;
 import src.World.World;
 
 
@@ -12,6 +14,7 @@ import src.World.World;
 public class Draw extends Scenery{
 
     private MapPanel panel;
+    private JframeInput input;
 
 /**
  * Constructor of the map 
@@ -19,8 +22,9 @@ public class Draw extends Scenery{
  * 
  */
 
-    public Draw(World world){
-        super(world);  
+    public Draw(World world, JframeInput input) {
+        super(world);
+        this.input = input;
         panel = new MapPanel(world);
     }
 
@@ -30,27 +34,32 @@ public class Draw extends Scenery{
  */
 
     public void drawMap(){
-
         JFrame window = new JFrame();
         window.setSize(1000,1000);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-
+        panel.setFocusable(true);
+        panel.addKeyListener(input);
         window.add(panel);
+
         window.setVisible(true);
 
+        panel.requestFocusInWindow();
+    }
+
+    @Override
+    public void show(){
+        panel.repaint();
     }
 
 /**
  * Asign the new world in the current panel and repaint it. 
  * @param world
  */
-
-    public void updatePanel(World world){
-        changeWorld(world);
+    @Override
+    public void changeWorld(World world){
+        super.changeWorld(world);
         panel.setWorld(world);
         panel.repaint();
-
     }
 
 

@@ -3,6 +3,8 @@ package src;
 import src.Controller.Controller;
 import src.Controller.UserController;
 import src.Inputs.ConsoleInput;
+import src.Inputs.Input;
+import src.Inputs.JframeInput;
 import src.Physical.Physical;
 import src.World.Map;
 import src.World.MapReader;
@@ -54,7 +56,7 @@ public class Test {
         physicals.add(enemy);
 
         Physical character = new Physical(2, 1, 'o');
-        ConsoleInput input = new ConsoleInput();
+        Input input = new JframeInput();
         UserController userInput = new UserController(character, input);
         physicals.add(character);
         controllers.add(userInput);
@@ -69,21 +71,16 @@ public class Test {
          * Create the scenery and display the world.
          */
 
-
         System.out.println("Print a simple map\n");
 
 
-        Draw drawi = new Draw(world);
-        drawi.drawMap();
+        Draw draw = new Draw(world, (JframeInput) input);
+        draw.drawMap();
 
-
-        
-
-        for(int i = 0; i < 100; i++){
-            scenery.show();
-            while(userInput.action()== null){
-                world.update(controllers);
-            }
+        for(int i = 0; i < 1000; i++){
+            world.update(controllers);
+            draw.show();
+            sleep(16);
         }
 
 

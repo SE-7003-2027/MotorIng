@@ -18,7 +18,8 @@ import src.Physical.Physical;
  * @version 0.1
  */
 public class UserController extends Controller{
-    private volatile String command;
+    private String command;
+    private boolean inputTaken;
 
     public UserController(Physical physical, Input input) {
         super(physical, input);
@@ -34,6 +35,9 @@ public class UserController extends Controller{
 
     @Override
     public Action action(String command) {
+        if(command == null || command.equals("")){inputTaken = false; return null;}
+        if(inputTaken){ return null;}
+        inputTaken = true;
         return switch (command.toUpperCase().charAt(0)) {
             case 'W' -> actions[0];
             case 'S' -> actions[1];
@@ -45,6 +49,10 @@ public class UserController extends Controller{
 
     @Override
     public Action action() {
-        return null;
+        String command = input.getInput();
+        if (command == null) {
+            return null;
+        }
+        return action(command);
     }
 }
