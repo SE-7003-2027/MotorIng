@@ -68,9 +68,16 @@ public class Test {
         /*
          * Create the scenery and display the world.
          */
-        Scenery scenery = new Scenery(world);
+
 
         System.out.println("Print a simple map\n");
+
+
+        Draw drawi = new Draw(world);
+        drawi.drawMap();
+
+
+        
 
         for(int i = 0; i < 100; i++){
             scenery.show();
