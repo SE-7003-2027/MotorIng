@@ -1,3 +1,5 @@
+package src;
+
 import src.Physical.ClusterPhysical;
 import src.Physical.Physical;
 import src.World.Map;
@@ -7,6 +9,8 @@ import src.Scenery;
 
 import java.io.IOException;
 import java.util.Vector;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Tests the Map, MapReader, Physical, ClusterPhysical, Scenery, and World
@@ -78,7 +82,7 @@ public class Test2 {
         /*
          * Create the scenery and display the world.
          */
-        Scenery scenery = new Scenery(world);
+        Scenery scenery = new Scenery(world){};
 
         System.out.println("Print a simple map\n");
 
