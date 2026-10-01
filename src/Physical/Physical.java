@@ -1,4 +1,6 @@
 package src.Physical;
+
+import src.World.CollisionInfo;
 /**
  * Represents a physical object within the game world.
  *
@@ -6,7 +8,7 @@ package src.Physical;
  * {@code y} coordinates and a character used as its sprite. By default,
  * a physical object occupies a single cell of the world.</p>
  *
- * @author fabriziocasillas, thrinkler, memolokote
+ * @author fabriziocasillas, thrinkler, memolokote, 1IsaacJR
  * @version 0.2
  */
 public class Physical {
@@ -14,6 +16,8 @@ public class Physical {
     private int x;
     private int y;
     private char sprite;
+    //New attribute to store the last detected collision/contact
+    private CollisionInfo trackCollision;
 
 
     /**
@@ -123,6 +127,25 @@ public class Physical {
      */
     public int[][] getCells() {
         return new int[][]{{x, y}};
+    }
+
+    /**
+     * Called when the World detects that this physical object is touching
+     * or colliding with tiles or other physical objects.
+     *
+     * @param info the collision data containing touched tiles and physical objects
+     */
+    public void onCollision(CollisionInfo info) {
+        this.trackCollision = info;
+    }
+
+    /**
+     * Returns the collision information tracked from the World.
+     *
+     * @return the current {@link CollisionInfo} tracked instance
+     */
+    public CollisionInfo getTrackCollision() {
+        return trackCollision;
     }
 
 }
