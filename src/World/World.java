@@ -54,9 +54,7 @@ public class World {
             Action action = controller.action();
             if (action instanceof Translation translation) {
                 Physical physical = controller.getPhysical();
-                physical.updatePos(
-                        physical.getX() + translation.getDx(),
-                        physical.getY() + translation.getDy()
+                move(physical,translation.getDx(),translation.getDy()
                 );
             }
         }
