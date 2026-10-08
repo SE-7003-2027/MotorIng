@@ -4,6 +4,7 @@ import src.Controller.Action;
 import src.Controller.Controller;
 import src.Controller.Translation;
 import src.Physical.Physical;
+import src.World.CollisionInfo;
 
 import java.util.Vector;
 
@@ -54,10 +55,17 @@ public class World {
             Action action = controller.action();
             if (action instanceof Translation translation) {
                 Physical physical = controller.getPhysical();
-                physical.updatePos(
-                        physical.getX() + translation.getDx(),
-                        physical.getY() + translation.getDy()
-                );
+                //Detect collisions/contacts for the projected movement
+                CollisionInfo collisions = detectCollisions(physical, translation.getDx(), translation.getDy());
+                //Send collision information to the Physical object
+                physical.onCollision(collisions);
+                //Move only if the position is completely valid
+                if(canMove(physical, translation.getDx(), translation.getDy())){
+                    physical.updatePos(
+                            physical.getX() + translation.getDx(),
+                            physical.getY() + translation.getDy()
+                    );
+                }
             }
         }
     }
@@ -191,5 +199,37 @@ public class World {
 
         physical.updatePos(physical.getX() + dx, physical.getY() + dy);
         return true;
+    }
+
+    /**
+     * Detects all map tiles and other physical objects that the given physical
+     * object would touch or collide with when moving by the specified offset (dx, dy).
+     *
+     * @param physical the object performing the collision check
+     * @param dx the horizontal offset
+     * @param dy the vertical offset
+     * @return a {@link CollisionInfo} containing all touched tiles and physical objects
+     */
+    public CollisionInfo detectCollisions(Physical physical, int dx, int dy){
+        CollisionInfo colitem = new CollisionInfo();
+
+        for(int[] cell : physical.getCells()){
+            int targetX = cell[0] + dx;
+            int targetY = cell[1] + dy;
+            //Tile detection on the map
+            if(inBounds(targetX, targetY)){
+                char tile = map.getTile(targetX, targetY);
+                colitem.addTile(tile);
+            }else{
+                colitem.addTile(WALL); // Out of bounds, marks like WALL
+            }
+            //Detection of other PhysicalObjects in the target cell
+            Physical other = getPhysicalAt(targetX, targetY);
+            if(other != null && other != physical){
+                colitem.addPhysical(other);
+            }
+        }
+
+        return colitem;
     }
 }
