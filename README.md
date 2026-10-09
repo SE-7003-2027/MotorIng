@@ -26,16 +26,18 @@ Developing grid-based and turn-based games (such as classic *roguelikes*) often 
   * **GUI / Graphics:** Standard Java Swing & AWT (included in the standard JDK).
 ---
 
-## Running the Grid Prototype (`Test` Class)
+## Running the Grid Prototype (`Test` / `Test2` Classes)
 
-To test the current architecture and visualize the rendered matrix grid, you can run the `Test` entry point located in the `src/` folder.
+To test the engine architecture, verify grid rendering, and evaluate collision detection with single-cell and multi-cell entities, run the entry points located in the `src/` folder.
 
 ### Option 1: Via Terminal / Command Line
 
-1. Open your terminal at the root directory of the project.
-2. Compile all Java source files from the `src/` directory into a `bin/` folder:
+1. Open your terminal at the **root directory** of the project (one level above `src/`).
+
+2. Compile all source files into the `bin/` output directory:
    ```bash
-   javac -d bin src/*.java
+   javac -d bin src/*.java src/World/*.java src/Physical/*.java src/Controller/*.java src/Inputs/*.java
+   
 
 ---
 
@@ -55,31 +57,44 @@ Below is the description of the core abstract and concrete classes that form the
   The core controller of the entire game engine. It captures user inputs, manages turn cycles, receives updated coordinate data from `PhysicalObject` instances, and instructs `World` on what to render.
 
 * **`World` (Canvas & Matrix):** 
-  An $n \times m$ grid matrix acting as a visual canvas. Depending on the commands and data sent by `Scenery` (object positions and sprites), `World` renders all sprites in their corresponding cell locations. It supports map loading and unloading operations. *(Future update: `World` will evaluate collisions between entities with HitBoxes).*
+  Manages the static Map and the list of active Physical entities. Evaluates movement validity using canMove(), calculates collision intersections via detectCollisions(), and coordinates game updates in update().
+
+* **`Map & MapReader`:**
+
+Map represents the static environment as a two-dimensional character array. MapReader parses external text map files (e.g., maps/map.txt) to dynamically load level structures.
+
+* **`CollisionInfo`:**
+
+Encapsulates collision data during movement checks. Holds references to touched static map tiles (e.g., walls #) and other Physical objects intersected during a move intent.
 
 ### Entity Hierarchy
 
-* **`PhysicalObject` (Abstract Class):** 
-  Base class for any element present in the world. Holds spatial position coordinates and sprite references, returning its updated position to `Scenery` during every cycle. *(Note: HitBox and collision detection will be integrated in future releases).*
+* **Physical (Base Entity Class):**
 
-* **`Movable` (Abstract Class):** 
-  Extends `PhysicalObject`. Abstract base class that enables entity movement across the grid matrix.
+  Base class for all elements in the world. Holds coordinates (x, y) and sprite representation. Includes the trackCollision attribute and the onCollision(CollisionInfo info) callback to receive collision updates from World.
 
-* **`Player`:** 
-  Extends `Movable`. Controllable entity that responds to user input and interacts with interactive objects in the world.
+* **ClusterPhysical:**
 
-* **`NPC`:** 
-  Extends `Movable`. Non-player character controlled by automated logic (moves toward the player).
+  Extends Physical. Supports entities that occupy multiple cells or non-rectangular shapes (such as $2 \times 2$ boxes, L-shaped walls, or large monsters) using a 2D character matrix shape.
 
-* **`Interactable` (Abstract Class):** 
-  Extends `PhysicalObject`. Immovable object that triggers internal functions or events upon interaction.
+### Inputs & Controllers (src.Inputs & src.Controller)
 
-* **`Wall`:** 
-  Extends `PhysicalObject`. Immovable, static physical barrier without interactions.
+    * Input (Interface), ConsoleInput & JframeInput:
 
-* **`Visualizer`:** 
-  Intermediary component acting between world grid references and `PhysicalObject` graphical sprites.
+    Abstract input handling for asynchronous terminal commands or Java Swing keyboard events (WASD, Arrow keys, Space).
 
+    * Controller & UserController:
+
+    Translates raw inputs into game actions (such as Translation vectors (dx, dy)) associated with a specific Physical entity.
+### Presentation Layer (src Package)
+
+    * Scenery (Master Controller Abstraction):
+
+    Abstract base class for rendering and game state display loops.
+
+    * Draw & MapPanel:
+
+    Swing GUI implementation. Draw manages the JFrame window, while MapPanel performs grid rendering and sprite drawing via AWT Graphics.
 ---
 
 ## Additional Features: 3D Interface
@@ -99,12 +114,15 @@ Design and implement a modular, maintainable, and extensible game engine in Java
 
 **Current Phase:** Architectural Design & Initial Implementation (Alpha)
 
-* [x] **SPIKE Research & ADR:** Architecture definition and technology validation.
-* [x] **Core Hierarchy Setup:** Abstract base classes created (`PhysicalObject`, `Movable`, `Interactable`).
-* [x] **Master Controller (`Scenery`):** Basic input reception and output loop generation.
-* [x] **Grid Canvas (`World`):** Matrix setup for receiving sprite position arrays and drawing map layouts.
+* [x] SPIKE Research & ADR: Architecture definition and technology stack validation.
+* [x] Map Loading System: External map parsing (MapReader) to load dynamic $n \times m$ grid matrices (Map).
+* [x] HitBox & World Collision Engine: Implementation of detectCollisions() in World and CollisionInfo data passing.
+* [x] Collision Tracking in Physical Objects: Added trackCollision attribute and onCollision() notification hook in Physical.
+* [x] Multi-cell Entity Support: Custom shape occupancy checking with ClusterPhysical.
+* [x] Input & Controller Mapping: Keyboard listening via JframeInput/ConsoleInput translated into Translation actions.
+* [x] Swing Canvas & Rendering Loop: Integrated Draw and MapPanel GUI window rendering.
 * * To be defined
-  * [ ] **HitBox & Collision Engine:** Adding hitboxes to `PhysicalObject` and collision evaluation in `World`.
-  * [ ] **Map Loading System:** File parsing for loading and unloading $n \times m$ matrices.
-  * [ ] **NPC Pathfinding:** AI logic for dynamic pathing toward the player.
+  * [ ] Interactive Collision Responses: Implement reactive logic on onCollision() (e.g., picking up items, taking damage, triggering events).
+  * [ ] Specialized Entity Classes: Extend Physical into concrete classes (Player, NPC, Interactable, Wall).
+  * [ ] NPC AI & Pathfinding: Introduce automated controllers for enemy navigation toward target entities.
 
