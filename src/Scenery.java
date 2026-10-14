@@ -1,94 +1,79 @@
+
 package src;
 
 import src.World.World;
-import src.World.Map;
-import src.Physical.Physical;
 
 /**
- * Controls the main state and execution of the game.
+ * Defines the common interface for game scenes.
  *
- * <p>{@code Scenery} Renders and sends inputs to the current game world,
- * physical objects, sprites, input, updating, and displaying the game state.</p>
- *
- * <p>The {@code start()} method is responsible for starting the main
- * game loop, while {@code update(Input)} and {@code show()} handle
- * updating and displaying the current state.</p>
+ * <p>A scene manages the current world and provides operations
+ * for displaying the game and showing interface messages.</p>
  *
  * @author fabrtiziocasillas, thrinkler
- * @version 0.1
+ * @version 0.2
  */
 public abstract class Scenery {
 
     private World world;
+    private String message;
 
     /**
-     * Creates a new {@code Scenery} instance with the specified world,
-     * physical objects, and sprites.
+     * Creates a scene associated with a world.
      *
-     * @param world the game world
+     * @param world world to display and manage
      */
     public Scenery(World world) {
         this.world = world;
+        this.message = null;
     }
 
     /**
-     * Displays the current state of the game.
-     *
-     * <p>The static map is displayed first. Physical objects are then
-     * displayed on top of the map. For each cell, the world is asked which
-     * object occupies it, and that object provides the sprite for that
-     * specific cell. This allows objects that occupy several cells
-     * to be drawn completely.</p>
+     * Displays or refreshes the current scene.
      */
-    public void show() {
-        Map map = world.getMap();
-        for (int y = 0; y < map.getHeight(); y++) {
-            for (int x = 0; x < map.getWidth(); x++) {
-                char sprite = map.getTile(x, y);
-                Physical object = world.getPhysicalAt(x, y);
-                if (object != null) {
-                    sprite = object.getSpriteAt(x, y);
-                }
-                System.out.print(sprite);
-            }
-            System.out.println();
-        }
-    }
-    
- 
- 
+    public abstract void show();
+
     /**
-     * Updates the game state.
+     * Displays a message in the current scene.
      *
+     * @param message text to display
      */
-    public void update() {
+    public void showMessage(String message) {
+        this.message = message;
+        show();
     }
 
     /**
-     * Changes the current game world.
+     * Removes the currently displayed message.
+     */
+    public void clearMessage() {
+        this.message = null;
+        show();
+    }
+
+    /**
+     * Returns the currently displayed message.
      *
-     * @param world the new game world
+     * @return active message, or null if there is none
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * Changes the world associated with this scene.
+     *
+     * @param world new world
      */
     public void changeWorld(World world) {
         this.world = world;
     }
 
     /**
-     * Starts the main game loop.
+     * Returns the world associated with this scene.
      *
-     * <p>The game loop repeatedly processes input, updates the game
-     * state, and displays the current state.</p>
-     */
-    public void start() {
-
-    }
-
-    /**
-     * Gets the actual world.
-     *
-     * @return the current game world
+     * @return current world
      */
     public World getWorld() {
-        return this.world;
+        return world;
     }
 }
