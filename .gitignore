@@ -17,12 +17,17 @@
 #Java output
 out/
 
+<<<<<<< Updated upstream
 
 #local test things im sorry im sorry im sorry im sorry 
 
 /src/PlatformerTest.java
 /maps/map.txt
 /sounds/victory.wav
-/src/Physical/Potion.java
 /src/Rules/CollectPotionCondition.java
 /src/Rules/WinCondition.java
+
+
+# efor tests, i dont think you sould upsload it
+/src/PlatformerTest.java
+
