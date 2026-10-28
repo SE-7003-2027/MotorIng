@@ -16,3 +16,13 @@
 
 #Java output
 out/
+
+
+#local test things im sorry im sorry im sorry im sorry 
+
+/src/PlatformerTest.java
+/maps/map.txt
+/sounds/victory.wav
+/src/Physical/Potion.java
+/src/Rules/CollectPotionCondition.java
+/src/Rules/WinCondition.java
