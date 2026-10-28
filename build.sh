@@ -28,6 +28,16 @@ test() {
     java -cp "$BUILD_DIR" src.Test
 }
 
+testp() {
+    build
+
+    echo ""
+    echo "Testeando..."
+    echo ""
+
+    java -cp "$BUILD_DIR" src.PlatformerTest
+}
+
 clean() {
     echo "limpiando cosas que construyo java..."
 
@@ -43,6 +53,10 @@ case "$1" in
 
     test)
         test
+        ;;
+
+    testp)
+        testp
         ;;
 
     clean)

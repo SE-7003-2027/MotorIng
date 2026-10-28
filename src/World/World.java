@@ -1,11 +1,7 @@
 package src.World;
 
-import src.Controller.Action;
-import src.Controller.Controller;
-import src.Controller.Translation;
 import src.Physical.Interactuable;
 import src.Physical.Physical;
-import src.World.CollisionInfo;
 
 import java.util.Vector;
 
@@ -51,33 +47,6 @@ public class World {
     }
 
 
-
-    public void update(Vector<Controller> controllers) {
-        for (Controller controller : controllers) {
-            Action action = controller.action();
-
-            if (action instanceof Translation translation) {
-                Physical physical = controller.getPhysical();
-
-                CollisionInfo collisions = detectCollisions(
-                        physical,
-                        translation.getDx(),
-                        translation.getDy()
-                );
-
-                physical.onCollision(collisions);
-
-                if (canMove(physical, translation.getDx(), translation.getDy())) {
-                    physical.updatePos(
-                            physical.getX() + translation.getDx(),
-                            physical.getY() + translation.getDy()
-                    );
-
-                    handleInteractions(physical, collisions);
-                }
-            }
-        }
-    }
 
     /**
      * Returns the physical objects contained in the world.
@@ -190,30 +159,38 @@ public class World {
         return true;
     }
 
+
     /**
      * Moves a physical object by the specified offset if the movement
      * is possible.
      *
-     * <p>If any of the cells of the object would collide, the object
-     * does not move at all.</p>
+     * <p>Collision information is updated even when the movement is
+     * blocked. If the movement succeeds, interactions with encountered
+     * interactable objects are handled.</p>
      *
      * @param physical the object to move
      * @param dx the change in the x-coordinate
      * @param dy the change in the y-coordinate
-     * @return {@code true} if the object was moved, {@code false} otherwise
+     * @return true if the object was moved, false otherwise
      */
     public boolean move(Physical physical, int dx, int dy) {
         CollisionInfo collisions = detectCollisions(physical, dx, dy);
 
+        // Keep the object's collision information up to date.
+        physical.onCollision(collisions);
+
+        // Do not move if any occupied cell would collide with an obstacle.
         if (!canMove(physical, dx, dy)) {
             return false;
         }
 
+        // Apply the movement.
         physical.updatePos(
                 physical.getX() + dx,
                 physical.getY() + dy
         );
 
+        // Handle interactions with objects encountered during movement.
         handleInteractions(physical, collisions);
 
         return true;

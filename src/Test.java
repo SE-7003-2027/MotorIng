@@ -1,4 +1,3 @@
-
 package src;
 
 import src.Controller.Controller;
@@ -7,27 +6,22 @@ import src.Inputs.Input;
 import src.Inputs.JframeInput;
 import src.Physical.Physical;
 import src.Physical.Potion;
-import src.Rules.CollectPotionCondition;
-import src.Rules.WinCondition;
 import src.World.Map;
 import src.World.MapReader;
 import src.World.World;
 import src.Audio.AudioPlayer;
-import src.Rules.CollectPotionCondition;
-import src.Rules.WinCondition;
-
-
+import src.Systems.ControllerSystem;
+import src.Systems.GameLoop;
+import src.Systems.GameSystem;
 
 import java.io.IOException;
 import java.util.Vector;
 
-import static java.lang.Thread.sleep;
-
 /**
- * Tests movement, collectible interactions, and the win condition.
+ * Tests movement, collectible interactions, and win logic via GameSystems.
  *
  * @author fabriziocasillas, thrinkler
- * @version 0.2
+ * @version 0.3
  */
 public class Test {
 
@@ -37,6 +31,7 @@ public class Test {
      *
      * @param args command-line arguments
      * @throws IOException if the map file cannot be read
+     * @throws InterruptedException if the thread is interrupted
      */
     public static void main(String[] args)
             throws IOException, InterruptedException {
@@ -66,11 +61,8 @@ public class Test {
 
         controllers.add(userInput);
 
-        // Create the world and the win condition.
+        // Create the world.
         World world = new World(map, physicals);
-        WinCondition winCondition = new CollectPotionCondition();
-        boolean won = false;
-
 
         // Create and display the game window.
         Draw draw = new Draw(world, (JframeInput) input);
@@ -78,22 +70,38 @@ public class Test {
 
         System.out.println("Collect all the potions (*) to win!");
 
-        // Game loop.
-        while (true) {
-            if (!won) {
-                world.update(controllers);
+        // 1. Instanciar el motor (sin el while(true) alrededor)
+        GameLoop game = new GameLoop(world, draw);
 
-                if (winCondition.isMet(world)) {
+        // 2. Sistema de controles (en este Test usamos UserController clásico)
+        game.addSystem(new ControllerSystem(controllers));
+
+        // 3. Sistema de Victoria (Reemplazo directo de WinCondition)
+        game.addSystem(new GameSystem() {
+            private boolean won = false;
+
+            @Override
+            public void update(World world) {
+                if (won) return; // Si ya ganó, salir rápido
+
+                // Lógica para revisar si el jugador ya recolectó todas las pociones
+                boolean hasPotions = false;
+                for (Physical p : world.getPhysicals()) {
+                    if (p instanceof Potion) {
+                        hasPotions = true;
+                        break; 
+                    }
+                }
+
+                // Si recorrió todo el mundo y no encontró pociones, el jugador gana
+                if (!hasPotions) {
                     won = true;
-
                     draw.showMessage("¡Ganaste!");
-                    AudioPlayer.play("sounds/victory.wav");
                 }
             }
+        });
 
-            draw.show();
-            sleep(16);
-        }
-
+        // 4. Iniciar el motor
+        game.start();
     }
 }
