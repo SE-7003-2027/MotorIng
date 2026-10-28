@@ -1,14 +1,22 @@
+
 package src;
 
 import src.Controller.Controller;
 import src.Controller.UserController;
-import src.Inputs.ConsoleInput;
 import src.Inputs.Input;
 import src.Inputs.JframeInput;
 import src.Physical.Physical;
+import src.Physical.Potion;
+import src.Rules.CollectPotionCondition;
+import src.Rules.WinCondition;
 import src.World.Map;
 import src.World.MapReader;
 import src.World.World;
+import src.Audio.AudioPlayer;
+import src.Rules.CollectPotionCondition;
+import src.Rules.WinCondition;
+
+
 
 import java.io.IOException;
 import java.util.Vector;
@@ -16,11 +24,10 @@ import java.util.Vector;
 import static java.lang.Thread.sleep;
 
 /**
- * Tests the Map, MapReader, Physical, Scenery, and World classes
- * by loading and displaying a simple map.
+ * Tests movement, collectible interactions, and the win condition.
  *
  * @author fabriziocasillas, thrinkler
- * @version 0.1
+ * @version 0.2
  */
 public class Test {
 
@@ -31,60 +38,62 @@ public class Test {
      * @param args command-line arguments
      * @throws IOException if the map file cannot be read
      */
-    public static void main(String args[]) throws IOException, InterruptedException {
+    public static void main(String[] args)
+            throws IOException, InterruptedException {
 
-        /*
-         * Load the static map from the text file.
-         */
+        // Load the map.
         Map map = MapReader.read("maps/map.txt");
 
-        /*
-         * Create the physical objects that exist in the world.
-         * Walls are no longer represented as Physical objects
-         * because they belong to the static map.
-         */
+        // Create physical objects and controllers.
         Vector<Physical> physicals = new Vector<>();
         Vector<Controller> controllers = new Vector<>();
 
-        Physical potion = new Physical(5, 1, '*');
-        physicals.add(potion);
-
-        Physical secondPotion = new Physical(2, 4, '*');
-        physicals.add(secondPotion);
+        Potion potion = new Potion(5, 1);
+        Potion secondPotion = new Potion(2, 4);
 
         Physical enemy = new Physical(7, 4, '@');
-        physicals.add(enemy);
-
         Physical character = new Physical(2, 1, 'o');
-        Input input = new JframeInput();
-        UserController userInput = new UserController(character, input);
+
+        physicals.add(potion);
+        physicals.add(secondPotion);
+        physicals.add(enemy);
         physicals.add(character);
+
+        // Configure keyboard input.
+        Input input = new JframeInput();
+        UserController userInput =
+                new UserController(character, input);
+
         controllers.add(userInput);
 
-        /*
-         * Create the world using the static map and
-         * the physical objects.
-         */
+        // Create the world and the win condition.
         World world = new World(map, physicals);
-
-        /*
-         * Create the scenery and display the world.
-         */
-
-        System.out.println("Print a simple map\n");
+        WinCondition winCondition = new CollectPotionCondition();
+        boolean won = false;
 
 
+        // Create and display the game window.
         Draw draw = new Draw(world, (JframeInput) input);
         draw.drawMap();
 
-        for(int i = 0; i < 1000; i++){
-            world.update(controllers);
+        System.out.println("Collect all the potions (*) to win!");
+
+        // Game loop.
+        while (true) {
+            if (!won) {
+                world.update(controllers);
+
+                if (winCondition.isMet(world)) {
+                    won = true;
+
+                    draw.showMessage("¡Ganaste!");
+                    AudioPlayer.play("sounds/victory.wav");
+                }
+            }
+
             draw.show();
             sleep(16);
         }
 
-
-
-        System.out.println("\nYOU EXIT SUCCESFULLY");
     }
 }

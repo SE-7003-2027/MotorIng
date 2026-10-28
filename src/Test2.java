@@ -82,11 +82,12 @@ public class Test2 {
         /*
          * Create the scenery and display the world.
          */
-        Scenery scenery = new Scenery(world){};
+        System.out.println("Testing map and physical objects...");
+        System.out.println("Number of physical objects: "
+                + world.getPhysicals().size());
 
         System.out.println("Print a simple map\n");
 
-        scenery.show();
 
         /*
          * Test the movement with collisions. The result depends on
@@ -96,9 +97,7 @@ public class Test2 {
         System.out.println("Move box right: " + world.move(box, 1, 0));
         System.out.println("Move L-shape down: " + world.move(lShape, 0, 1));
 
-        System.out.println();
 
-        scenery.show();
 
         System.out.println("\nYOU EXIT SUCCESFULLY");
     }

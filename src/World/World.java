@@ -3,7 +3,9 @@ package src.World;
 import src.Controller.Action;
 import src.Controller.Controller;
 import src.Controller.Translation;
+import src.Physical.Interactuable;
 import src.Physical.Physical;
+import src.World.CollisionInfo;
 
 import java.util.Vector;
 
@@ -49,16 +51,38 @@ public class World {
     }
 
 
+
     public void update(Vector<Controller> controllers) {
         for (Controller controller : controllers) {
             Action action = controller.action();
+
             if (action instanceof Translation translation) {
                 Physical physical = controller.getPhysical();
+<<<<<<< HEAD
                 move(physical,translation.getDx(),translation.getDy()
+=======
+
+                CollisionInfo collisions = detectCollisions(
+                        physical,
+                        translation.getDx(),
+                        translation.getDy()
+>>>>>>> origin/main
                 );
+
+                physical.onCollision(collisions);
+
+                if (canMove(physical, translation.getDx(), translation.getDy())) {
+                    physical.updatePos(
+                            physical.getX() + translation.getDx(),
+                            physical.getY() + translation.getDy()
+                    );
+
+                    handleInteractions(physical, collisions);
+                }
             }
         }
     }
+
     /**
      * Returns the physical objects contained in the world.
      *
@@ -161,7 +185,8 @@ public class World {
 
             Physical other = getPhysicalAt(newX, newY);
 
-            if (other != null && other != physical) {
+            if (other != null && other != physical
+                    && !(other instanceof Interactuable)) {
                 return false;
             }
         }
@@ -182,12 +207,75 @@ public class World {
      * @return {@code true} if the object was moved, {@code false} otherwise
      */
     public boolean move(Physical physical, int dx, int dy) {
+        CollisionInfo collisions = detectCollisions(physical, dx, dy);
 
         if (!canMove(physical, dx, dy)) {
             return false;
         }
 
-        physical.updatePos(physical.getX() + dx, physical.getY() + dy);
+        physical.updatePos(
+                physical.getX() + dx,
+                physical.getY() + dy
+        );
+
+        handleInteractions(physical, collisions);
+
         return true;
     }
+
+    /**
+     * Detects all map tiles and other physical objects that the given physical
+     * object would touch or collide with when moving by the specified offset (dx, dy).
+     *
+     * @param physical the object performing the collision check
+     * @param dx the horizontal offset
+     * @param dy the vertical offset
+     * @return a {@link CollisionInfo} containing all touched tiles and physical objects
+     */
+    public CollisionInfo detectCollisions(Physical physical, int dx, int dy){
+        CollisionInfo colitem = new CollisionInfo();
+
+        for(int[] cell : physical.getCells()){
+            int targetX = cell[0] + dx;
+            int targetY = cell[1] + dy;
+
+            
+            //Tile detection on the map
+            if(inBounds(targetX, targetY)){
+                char tile = map.getTile(targetX, targetY);
+                colitem.addTile(tile);
+            }else{
+                colitem.addTile(WALL); // Out of bounds, marks like WALL
+            }
+            //Detection of other PhysicalObjects in the target cell
+            Physical other = getPhysicalAt(targetX, targetY);
+            if(other != null && other != physical){
+                colitem.addPhysical(other);
+            }
+        }
+
+        return colitem;
+    }
+
+    public boolean removePhysical(Physical physical) {
+    return physicals.remove(physical);
+    }
+
+
+
+    private void handleInteractions(
+            Physical movingPhysical,
+            CollisionInfo collisions) {
+
+        for (Physical other : collisions.getTouchedPhysicals()) {
+            if (other instanceof Interactuable interactuable) {
+                interactuable.interact(movingPhysical, this);
+            }
+        }
+    }
+
+
 }
+
+
+
