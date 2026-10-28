@@ -10,14 +10,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-<<<<<<< HEAD
-import java.util.Vector;
-=======
 import java.awt.Graphics2D;
 import java.awt.AlphaComposite;
 import java.awt.RenderingHints;
 import java.awt.Dimension;
->>>>>>> origin/main
 
 /**
  * Swing panel responsible for rendering the game world
@@ -28,13 +24,9 @@ import java.awt.Dimension;
 public class MapPanel extends JPanel {
 
     private World world;
-<<<<<<< HEAD
-    static final int tile = 20;
-=======
     private String message;
 
     static final int tile = 64;
->>>>>>> origin/main
 
     /**
      * Creates a panel associated with a world.
@@ -100,58 +92,6 @@ public class MapPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-<<<<<<< HEAD
-       
-        for(int i = 0 ; i < map.length; i++){
-            for (int j = 0 ; j < map[i].length; j++){
-                String actual = String.valueOf(map[i][j]);
-                
-                if(actual.equals(" ")){
-                    g.drawRect(j*tile, i*tile, tile, tile);
-                }
-                else if(actual.equals("#")){
-                    g.fillRect(j*tile, i*tile, tile, tile);
-                }            
-                else{
-                    g.drawString(actual, j*tile, i*tile+tile);
-                }
-            }
-        }
-
-        Vector <Physical> physicals = world.getPhysicals();
-        for(int i = 0; i< physicals.size(); i++){
-            if(physicals.get(i) instanceof ClusterPhysical){
-                int x = physicals.get(i).getX();
-                int y = physicals.get(i).getY();
-                for(int j = 0; j < physicals.get(i).getHeight(); j++){
-                    int ytrue = y + j;
-                    for(int k = 0; k < physicals.get(i).getWidth(); k++){
-                        int xtrue = x + k;
-                        if (physicals.get(i).occupies(xtrue, ytrue) &&
-                            physicals.get(i).getSpriteAt(xtrue, ytrue) == '#') {
-
-                            g.fillRect(xtrue*tile, ytrue*tile, tile, tile);
-                        }
-                        else{
-                            g.drawString(String.valueOf(physicals.get(i).getSpriteAt(xtrue, ytrue))
-                            , xtrue *tile,
-                             ytrue*tile+tile );
-                            
-                        }
-                        
-                    }
-
-                }
-            }
-            else{
-                Physical actual = world.getPhysicals().get(i);
-                g.drawString(String.valueOf(actual.getSprite()),
-                actual.getX() *tile,
-                actual.getY()*tile+tile);
-            }
-        }  
-=======
->>>>>>> origin/main
 
         if (world == null) {
             return;

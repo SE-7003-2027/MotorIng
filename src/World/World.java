@@ -58,15 +58,11 @@ public class World {
 
             if (action instanceof Translation translation) {
                 Physical physical = controller.getPhysical();
-<<<<<<< HEAD
-                move(physical,translation.getDx(),translation.getDy()
-=======
 
                 CollisionInfo collisions = detectCollisions(
                         physical,
                         translation.getDx(),
                         translation.getDy()
->>>>>>> origin/main
                 );
 
                 physical.onCollision(collisions);

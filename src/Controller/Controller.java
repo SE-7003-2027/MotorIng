@@ -17,14 +17,14 @@ import src.Physical.Physical;
 public abstract class Controller {
 
     protected Physical physical;
-    protected Input input;
+    //protected Input input;
     protected Action[] actions;
 
     protected Action askAction;
 
-    public Controller(Physical physical, Input input) {
+    public Controller(Physical physical){ //Input input) {
         this.physical = physical;
-        this.input = input;
+        //this.input = input;
     }
 
     /**

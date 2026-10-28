@@ -19,10 +19,12 @@ import src.Physical.Physical;
  */
 public class UserController extends Controller{
     private String command;
+    private Input input;
     private boolean inputTaken;
 
     public UserController(Physical physical, Input input) {
-        super(physical, input);
+        super(physical);
+        this.input = input;
         
         actions = new Action[]{
                 new Translation(0, -1), // Up
